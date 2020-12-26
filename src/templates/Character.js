@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'gatsby';
+import '../components/posts.scss'
 class character extends Component {
 
     state = {}
