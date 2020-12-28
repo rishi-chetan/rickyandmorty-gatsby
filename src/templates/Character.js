@@ -2,17 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'gatsby';
 import '../components/posts.scss'
 class character extends Component {
-
-    state = {}
-
-    componentDidMount() {
-        console.log(this.props.pathContext.charId);
-        const url = `https://rickandmortyapi.com/api/character/${this.props.pathContext.charId}`;
-        fetch(url).then(res => res.json()).then(res => {
-            console.log(res);
-            this.setState({charData: res})
-        })
-    }
     render() {
         const btnStyle = {
             backgroundColor: 'white',
@@ -27,18 +16,21 @@ class character extends Component {
         return (
             <div>
                 <Link to="/" style={btnStyle} >BACK</Link>
-                {this.state.charData ? 
+                {this.props.pageContext ? 
                     <>
                     <div className="character" style={{display: 'block', margin: 'auto'}} >
-                    <img src={this.state.charData.image} alt="image"/>
-                    <p><span className="character__id">Name: </span> {this.state.charData.name}</p>
-                    <p><span className="character__id">Gender: </span> {this.state.charData.gender}</p>
-                    <p><span className="character__id">Species: </span> {this.state.charData.species}</p>
-                    <p><span className="character__id">Status: </span> {this.state.charData.status}</p>
-                    <p><span className="character__id">Origin: </span> {this.state.charData.origin.name}</p>
+                    <img src={this.props.pageContext.image} alt={this.props.pageContext.name}/>
+                    <p><span className="character__id">Name: </span> {this.props.pageContext.name}</p>
+                    <p><span className="character__id">Gender: </span> {this.props.pageContext.gender}</p>
+                    <p><span className="character__id">Species: </span> {this.props.pageContext.species}</p>
+                    <p><span className="character__id">Status: </span> {this.props.pageContext.status}</p>
+                    <p><span className="character__id">Origin: </span> {this.props.pageContext.origin.name}</p>
                     </div>
                     </>
-                      : ''}
+                    : 
+                    <>
+                        <center>loading...</center>
+                    </>}
             </div>
         );
     }

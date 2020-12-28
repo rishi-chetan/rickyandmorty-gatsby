@@ -7,32 +7,24 @@ import './index.scss';
 
 class IndexPage extends Component {
 
-    state = {}
-    componentDidMount(){
-      
-          axios.get('https://rickandmortyapi.com/api/character').then(res => {
-          this.setState({
-            characters: [...res.data.results],
-            info: res.data.info
-          });
-          console.log(this.state.characters[0]);
-          }).catch(err => console.log(err));
+    state = {};
+    getCharData(url,dirn) {
+      if(dirn) {
+        url = this.state.info[dirn];
       }
-
-
-    render() {
-
-      const changePage = (dirn) => {
-          
-        const url = this.state.info[dirn]
-          axios.get(url).then(res => {
+      axios.get(url).then(res => {
           this.setState({
             characters: [...res.data.results],
             info: res.data.info
           });
           }).catch(err => console.log(err));
     }
+    componentDidMount(){
+        this.getCharData('https://rickandmortyapi.com/api/character');
+      }
 
+
+    render() {
     const updateFilter = (e) => {
       e.preventDefault();
       let status = 'status=';
@@ -40,23 +32,14 @@ class IndexPage extends Component {
       e.target.status.value === 'select' ? status = '' : status += e.target.status.value;
       e.target.gender.value === 'select' ? gender = '' : gender += e.target.gender.value;
       const url = 'https://rickandmortyapi.com/api/character/?'+ status + gender;
-      axios.get(url).then(res => {
-        this.setState({
-          characters: [...res.data.results],
-          info: res.data.info
-        });
-        }).catch(err => console.log(err));
-    }
-
-    const openChar = () => {
-
+      this.getCharData(url);
     }
 
     return (
       <>
         <div className="filter">
-          <button onClick={()=>{changePage('prev')}}>PREV</button>
-          <button onClick={()=>{changePage('next')}}>NEXT</button>
+          <button onClick={()=>{this.getCharData('','prev')}}>PREV</button>
+          <button onClick={()=>{this.getCharData('','next')}}>NEXT</button>
           <br/><br/>
           <form onSubmit={updateFilter} >
             <label htmlFor="status">Status: </label>
@@ -82,8 +65,8 @@ class IndexPage extends Component {
             this.state.characters ?
             this.state.characters.map( char => {
               return (
-                <Link to={`/character/${char.id}`}>
-                  <Posts key={char.id} char={char}></Posts>
+                <Link to={`/character/${char.id}`} key={char.id}>
+                  <Posts char={char}></Posts>
                 </Link>
               )
             }):  <h1>loading.....</h1>

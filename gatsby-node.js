@@ -1,16 +1,18 @@
-const { create } = require('domain');
+const fetch = require('node-fetch');
 const path = require('path');
 
-exports.createPages = ({ actions }) => {
-    const { createPage } = actions
+exports.createPages = async ({ actions }) => {
+    
     const charTemplate = path.resolve(`${__dirname}/src/templates/Character.js`)
 
-    for (i=1; i<672; i++) {
-
-        createPage ({
-            path:`/character/${i}`,
-            component: charTemplate,
-            context: {charId: i}
-        })
-    }
+    await fetch('https://rickandmortyapi.com/api/character').then(res => res.json()).then(res => {
+            res.results.forEach(char => {
+            actions.createPage ({
+                path:`/character/${char.id}`,
+                component: charTemplate,
+                context: char
+            });
+        });
+    });
+    
 }
