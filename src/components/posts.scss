@@ -5,15 +5,16 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.247);
     display: inline-block;
     padding: 1rem;
-    &:hover {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.801);
-    }
-    p {
+    &__details {
         margin: 0;
         font-weight: 400;
         color: gray;
+        &__special {
+            font-weight: bolder;
+            color: black;
+        }
     }
-    img {
+    &__image {
         height: 250px;
         min-height: 250px;
         min-width: 250px;
@@ -21,9 +22,5 @@
         width: 250px;
         display: block;
         margin: 0 auto 8px;
-    }
-    &__id {
-        font-weight: bolder;
-        color: black;
     }
 }

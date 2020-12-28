@@ -38,10 +38,12 @@ class IndexPage extends Component {
     return (
       <>
         <div className="filter">
-          <button onClick={()=>{this.getCharData('','prev')}}>PREV</button>
-          <button onClick={()=>{this.getCharData('','next')}}>NEXT</button>
+          <button onClick={()=>{this.getCharData('','prev')}} className="filter--button">PREV</button>
+          <button onClick={()=>{this.getCharData('','next')}} className="filter--button">NEXT</button>
           <br/><br/>
+
           <form onSubmit={updateFilter} >
+          
             <label htmlFor="status">Status: </label>
             <select name="status" id="status">
               <option value="select">select</option>
@@ -49,6 +51,7 @@ class IndexPage extends Component {
               <option value="dead">dead</option> 
               <option value="unknown">unknown</option>
             </select>&nbsp;
+          
             <label htmlFor="gender">Gender: </label>
             <select name="gender" id="gender">
             <option value="select">select</option>
@@ -57,15 +60,17 @@ class IndexPage extends Component {
               <option value="genderless">genderless</option>
               <option value="unknown">unknown</option>
             </select>
-            <button type="submit">Apply</button>
+          
+            <button type="submit" className="filter--button">Apply</button>
+          
           </form>
         </div>
-        <div className="chars">
+        <div className="char-container">
           {
             this.state.characters ?
             this.state.characters.map( char => {
               return (
-                <Link to={`/character/${char.id}`} key={char.id}>
+                <Link to={`/character/${char.id}`} key={char.id} className="char-container--single-character">
                   <Posts char={char}></Posts>
                 </Link>
               )

@@ -19,12 +19,18 @@ class character extends Component {
                 {this.props.pageContext ? 
                     <>
                     <div className="character" style={{display: 'block', margin: 'auto'}} >
-                    <img src={this.props.pageContext.image} alt={this.props.pageContext.name}/>
-                    <p><span className="character__id">Name: </span> {this.props.pageContext.name}</p>
-                    <p><span className="character__id">Gender: </span> {this.props.pageContext.gender}</p>
-                    <p><span className="character__id">Species: </span> {this.props.pageContext.species}</p>
-                    <p><span className="character__id">Status: </span> {this.props.pageContext.status}</p>
-                    <p><span className="character__id">Origin: </span> {this.props.pageContext.origin.name}</p>
+
+                    <img src={this.props.pageContext.image} alt={this.props.pageContext.name} className="character__image" />
+                    
+                    <p className="character__details"><span className="character__details character__details__special">Name: </span> {this.props.pageContext.name}</p>
+                    
+                    <p className="character__details"><span className="character__details character__details__special">Gender: </span> {this.props.pageContext.gender}</p>
+                    
+                    <p className="character__details"><span className="character__details character__details__special">Species: </span> {this.props.pageContext.species}</p>
+                    
+                    <p className="character__details"><span className="character__details character__details__special">Status: </span> {this.props.pageContext.status}</p>
+                    
+                    <p className="character__details"><span className="character__details character__details__special">Origin: </span> {this.props.pageContext.origin.name}</p>
                     </div>
                     </>
                     : 
